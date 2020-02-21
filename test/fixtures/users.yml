@@ -1,15 +1,29 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  first_name: MyString
-  second_name: MyString
-  email: manager1@example.com
-  position: MyString
-  address: MyString
+josie:
+  first_name: Josie
+  second_name: Waters
+  email: alex@fisherking.co
+  position: Investor Integration Supervisor
+  address: 22745 O'Kon Parks, Ernsermouth
 
-two:
-  first_name: MyString
-  second_name: MyString
-  email: manager2@example.com
-  position: MyString
-  address: MyString
+john:
+  first_name: John
+  second_name: Harris
+  email: adriel@larson.io
+  position: International Functionality waste
+  address: 3334 Maye Extension, New York
+
+alex:
+  first_name: Alex
+  second_name: Miles
+  email: alex@walmart.com
+  position: National Marketing Representative
+  address: 19851 Candelario Union,  Badwaters
+
+sandra:
+  first_name: Sandra
+  second_name: Janes
+  email: sandra@walmart.com
+  position: National Marketing director
+  address: 19851 Candelario Union,  Badwaters
