@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Created in order to fulfil test project for Bravado company. Details of the test - https://github.com/allaud/bravado-quest
 
-Things you may want to cover:
+Few notices:
+1. Usually i use RSpec as the test framework, but as project is just for test, i used native Rails framework MiniTest.
+2. I'm not sure that i had choosed right way to highlight text. Maybe i could find something better.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Demo of the project is here - https://still-escarpment-72212.herokuapp.com
