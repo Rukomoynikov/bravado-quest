@@ -50,7 +50,7 @@ jobs:
           bundle exec bundler-audit --update
           bundle exec brakeman -q -w2
   build:
-    runs-on: markadams/chromium-xvfb
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:11.5
