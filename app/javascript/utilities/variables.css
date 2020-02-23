@@ -1,0 +1,10 @@
+:root {
+  --background-color-grey: #EEEEEE;
+  --background-color-white: #FFFFFF;
+  --background-search-input: #FAFAFA;
+
+  --background-user-card: #FAFAFA;
+  --border-user-card: #4765FF;
+
+  --background-highlighted-text: #FFF73B;
+}

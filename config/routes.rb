@@ -4,10 +4,13 @@ Rails.application.routes.draw do
       get 'v1/search'
     end
   end
-  namespace :api do
-    namespace :v1 do
-      get 'users/search'
-    end
-  end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  root to: 'home#index'
+
+  get '*path', to: 'home#index', constraints: lambda { |req|
+    req.format.to_s == 'text/html' &&
+      !req.path.start_with?('/api') &&
+      !req.path.start_with?('/rails')
+  }
+
 end

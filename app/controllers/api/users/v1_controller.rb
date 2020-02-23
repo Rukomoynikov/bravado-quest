@@ -1,7 +1,7 @@
 class Api::Users::V1Controller < ApplicationController
   def search
     data = search_params[:query].present? ?
-               User.by_query(search_params[:query]) : User.all.to_json
+               User.by_query(search_params[:query]) : User.all
 
     render json: { data: data }, status: :ok
   end
