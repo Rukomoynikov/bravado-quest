@@ -1,0 +1,16 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'test/test_helper.rb'
+    - 'vendor/**/*'
+
+Layout/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Style/MultilineTernaryOperator:
+  Exclude:
+    - 'app/controllers/api/users/v1_controller.rb'

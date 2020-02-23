@@ -1,14 +1,20 @@
-class Api::Users::V1Controller < ApplicationController
-  def search
-    data = search_params[:query].present? ?
-               User.by_query(search_params[:query]) : User.all
+# frozen_string_literal: true
 
-    render json: { data: data }, status: :ok
-  end
+module Api
+  module Users
+    class V1Controller < ApplicationController
+      def search
+        data = search_params[:query].present? ?
+                   User.by_query(search_params[:query]) : User.all
 
-  private
+        render json: { data: data }, status: :ok
+      end
 
-  def search_params
-    params.permit(:query)
+      private
+
+      def search_params
+        params.permit(:query)
+      end
+    end
   end
 end
