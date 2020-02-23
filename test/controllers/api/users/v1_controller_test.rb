@@ -13,7 +13,7 @@ class Api::Users::V1ControllerTest < ActionDispatch::IntegrationTest
     get api_users_v1_search_url, xhr: true
 
     json_response = JSON.parse(response.body)
-    assert_equal @users.to_json, json_response['data']
+    assert_equal @users.to_json, json_response['data'].to_json
   end
 
   test 'should get empty array with a wrong query' do
