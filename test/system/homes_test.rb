@@ -3,8 +3,6 @@
 require 'application_system_test_case'
 
 class HomesTest < ApplicationSystemTestCase
-  driven_by :selenium, using: :chrome
-
   setup do
     visit root_url
   end
