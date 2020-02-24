@@ -44,6 +44,7 @@ export default {
 
 .searchForm {
   position: relative;
+  margin-bottom: 21px;
 }
 
 .searchForm__input {

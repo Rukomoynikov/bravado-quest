@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class='userCard' v-for='user in users'>
+  <div class='usersList'>
+    <div class='userCard' v-for='user in users' :key='user.id'>
       <div class='userCard__avatar'>
         <img :src="require('images/avatars/image.png')" />
       </div>
@@ -56,12 +56,20 @@ export default {
 <style scoped>
 @import '../utilities/variables.css';
 
+.usersList {
+  overflow: scroll;
+  max-height: 100%;
+}
+
 .userCard {
   background: var(--background-user-card);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
   border-radius: 3px;
   border: 1px solid transparent;
   display: flex;
+}
+
+.userCard + .userCard {
   margin-top: 21px;
 }
 

@@ -1,25 +1,31 @@
 <template>
   <div class='container'>
     <SearchForm @onSearch='onSearch'v-model='searchQuery' />
-    <UsersList :users='users' :highlightText='searchQuery'/>
+    <transition name='list'>
+      <UsersList :users='users' :highlightText='searchQuery' v-if='!loading' />
+    </transition>
+    <LoadingIndicator v-if='loading' />
   </div>
 </template>
 
 <script>
 import SearchForm from 'components/search_form'
 import UsersList from 'components/users_list'
+import LoadingIndicator from 'components/loading_indicator'
 import axios from 'axios'
 import {UrlManager} from './utilities/url_manager'
 
 export default {
   components: {
     SearchForm,
-    UsersList
+    UsersList,
+    LoadingIndicator
   },
   data() {
     return {
       searchQuery: '',
-      users: []
+      users: [],
+      loading: true
     }
   },
   mounted() {
@@ -36,11 +42,13 @@ export default {
       this.fetchUsers(this.searchQuery)
     },
     fetchUsers() {
+      this.loading = true
       UrlManager.updateUrl(this.searchQuery)
 
       const params = { params: { query: this.searchQuery }}
       axios.get('/api/users/v1/search', params).then((response) => {
         this.users = response.data.data
+        this.loading = false
       })
     }
   }
@@ -49,16 +57,21 @@ export default {
 
 <style>
 @import 'utilities/variables.css';
+@import 'utilities/animations.css';
 
-* > * {
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+*, :after, :before {
   box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
   background: var(--background-color-grey);
   font-family: Roboto,sans-serif;
-  overflow: hidden;
 }
 </style>
 
@@ -68,8 +81,11 @@ body {
 .container {
   background: var(--background-color-white);
   max-width: 564px;
-  min-height: calc(100vh - 108px);
+  height: calc(100vh - 108px);
   margin: 54px auto;
   padding: 19px 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 </style>
