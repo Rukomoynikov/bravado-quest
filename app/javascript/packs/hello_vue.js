@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import App from '../app.vue'
+import { router } from '../routes/router'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
-    render: h => h(App)
-  }).$mount()
+  Vue.config.productionTip = false;
 
-  document.body.appendChild(app.$el)
+  const app = new Vue({
+    router,
+    render: (h) => h(App),
+  }).$mount('#app')
 })
