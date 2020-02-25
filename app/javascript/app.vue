@@ -1,12 +1,27 @@
 <template>
   <div>
+    <Header />
     <router-view/>
   </div>
 </template>
 
 <script>
+import Header from './components/header'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Header
+  },
+  mounted() {
+    this.$store.dispatch('checkAuthentication')
+  },
+  computed: {
+    user() {
+      return this.$store.getters.isAuthenticated
+      // return this.$store.state.user
+    }
+  }
 }
 </script>
 

@@ -29,7 +29,16 @@ module Api
 
         token = Authentication::AuthenticateUserCommand.call(authentication_params[:email], authentication_params[:password]).result
 
-        render json: { data: { token: token } }
+        cookies[:user_id] = token
+
+        render json: { data: user.result }
+      end
+
+      def info
+        return render json: { error: 'Invalid credentials' },
+                      status: :unauthorized unless cookies[:user_id]
+
+        return render json: { data: User.find(JwtService.decode(cookies[:user_id])['user_id']) }
       end
 
       private

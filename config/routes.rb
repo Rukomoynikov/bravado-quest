@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create] do
         get 'search', on: :collection
         post 'sign_in', on: :collection
+        get :info, on: :collection
       end
     end
   end
