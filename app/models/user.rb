@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  has_secure_password
+
+  validates :email,
+            format: { with: URI::MailTo::EMAIL_REGEXP },
+            presence: true,
+            uniqueness: { case_sensitive: false }
 
   scope :by_query, lambda { |query_term|
     sql_query_term = "%#{query_term}%"

@@ -33,6 +33,13 @@ module Api
         json_response = JSON.parse(response.body)
         assert_equal 3, json_response['data'].count
       end
+
+      # test 'should create user with valid params' do
+      #   get v1_search_api_users_url, xhr: true
+      #
+      #   json_response = JSON.parse(response.body)
+      #   assert_equal @users.to_json, json_response['data'].to_json
+      # end
     end
   end
 end
