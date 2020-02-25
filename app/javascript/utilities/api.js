@@ -29,7 +29,13 @@ export default {
   whoAmI() {
     return axios.get('/api/v1/users/info');
   },
+  signOut() {
+    return axios.post('/api/v1/users/sign_out');
+  },
   signUp(params) {
     return axios.post('/api/v1/users', params)
+  },
+  signIn(params) {
+    return axios.post('/api/v1/users/sign_in', params)
   }
 };

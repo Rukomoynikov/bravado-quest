@@ -2,6 +2,7 @@
   <div>
     <div v-if='isAuthenticated'>
       {{ user.email }}
+      <button @click='signOut'>Sign out</button>
     </div>
     <div v-else>
       <router-link to='/sign_in'>Sign In</router-link>
@@ -20,10 +21,11 @@ export default {
     user() {
       return this.$store.state.user
     }
+  },
+  methods: {
+    signOut() {
+      this.$store.dispatch('signOut')
+    }
   }
 }
 </script>
-
-<style>
-
-</style>

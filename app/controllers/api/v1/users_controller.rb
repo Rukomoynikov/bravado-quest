@@ -11,13 +11,15 @@ module Api
       end
 
       def sign_in
-        token = Authentication::AuthenticateUserCommand.call(authentication_params[:email], authentication_params[:password])
+        auth_command = Authentication::AuthenticateUserCommand.call(authentication_params[:email], authentication_params[:password])
 
         return render json: {
-            errors: token.errors.full_messages
-        } if token.errors.present?
+            errors: auth_command.errors.full_messages
+        } if auth_command.errors.present?
 
-        render json: { data: { token: token } }
+        cookies[:user_id] = auth_command.result[:token]
+
+        render json: { data: auth_command.result[:user] }
       end
 
       def create
@@ -32,6 +34,12 @@ module Api
         cookies[:user_id] = token
 
         render json: { data: user.result }
+      end
+
+      def sign_out
+        cookies.delete :user_id
+
+        render json: { data: :success }
       end
 
       def info

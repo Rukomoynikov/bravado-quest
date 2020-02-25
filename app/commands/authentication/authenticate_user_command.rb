@@ -13,7 +13,10 @@ module Authentication
 
     def payload
       if password_valid?
-        @result = JwtService.encode(contents)
+        @result = {
+          token: JwtService.encode(contents),
+          user: @user
+        }
       else
         errors.add(:base, 'Invalid credentials')
         # errors.add(:base, I18n.t('authenticate_user_command.invalid_credentials'))
