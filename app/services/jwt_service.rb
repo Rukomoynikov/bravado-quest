@@ -4,7 +4,7 @@ class JwtService
   SECRET = 'my_supdvd1313sfsdg'
 
   def self.encode(payload)
-    # TODO: Заменить на Rails.application.secrets.secret_key_base
+    # TODO: Change to environment variable
     JWT.encode(payload, SECRET, 'HS256')
   end
 

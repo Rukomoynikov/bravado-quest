@@ -36,17 +36,17 @@ module Api
 
       test 'should create user with valid params' do
         post api_v1_users_url, xhr: true,
-             params: { email: 'admin@example.com', password: 'password' }
+                               params: { email: 'admin@example.com', password: 'password' }
 
         json_response = JSON.parse(response.body)
-        assert json_response['data']['token']
+        assert_equal User.last.to_json, json_response['data'].to_json
       end
 
       test 'should render errors when user already exists' do
         User.create(email: 'admin1@example.com', password: 'password')
 
         post api_v1_users_url, xhr: true,
-             params: { email: 'admin1@example.com', password: 'password' }
+                               params: { email: 'admin1@example.com', password: 'password' }
 
         json_response = JSON.parse(response.body)
         assert_equal ['Email has already been taken'], json_response['errors']
@@ -56,20 +56,21 @@ module Api
         user = User.create(email: 'admin1@example.com', password: 'password')
 
         post sign_in_api_v1_users_url, xhr: true,
-             params: { email: user.email, password: user.password }
+                                       params: { email: user.email, password: user.password }
 
         json_response = JSON.parse(response.body)
-        assert json_response['data']['token']
+        assert_equal User.last.to_json, json_response['data'].to_json
+        assert cookies[:user_id]
       end
 
       test 'should render errors when credentials are invalid' do
         user = User.create(email: 'admin1@example.com', password: 'password')
 
         post sign_in_api_v1_users_url, xhr: true,
-             params: { email: user.email, password: 'password1' }
+                                       params: { email: user.email, password: 'password1' }
 
         json_response = JSON.parse(response.body)
-        assert_equal ["Invalid credentials"], json_response['errors']
+        assert_equal ['Invalid credentials'], json_response['errors']
       end
     end
   end

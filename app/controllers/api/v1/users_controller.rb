@@ -13,9 +13,11 @@ module Api
       def sign_in
         auth_command = Authentication::AuthenticateUserCommand.call(authentication_params[:email], authentication_params[:password])
 
-        return render json: {
+        if auth_command.errors.present?
+          return render json: {
             errors: auth_command.errors.full_messages
-        } if auth_command.errors.present?
+          }
+        end
 
         cookies[:user_id] = auth_command.result[:token]
 
@@ -23,11 +25,14 @@ module Api
       end
 
       def create
-        user = Authentication::CreateUserCommand.call(authentication_params[:email], authentication_params[:password])
+        user = Authentication::CreateUserCommand
+                   .call(authentication_params[:email], authentication_params[:password])
 
-        return render json: {
+        if user.errors.present?
+          return render json: {
             errors: user.errors.full_messages
-        } if user.errors.present?
+          }
+        end
 
         token = Authentication::AuthenticateUserCommand.call(authentication_params[:email], authentication_params[:password]).result
 
@@ -43,10 +48,12 @@ module Api
       end
 
       def info
-        return render json: { error: 'Invalid credentials' },
-                      status: :unauthorized unless cookies[:user_id]
+        unless cookies[:user_id]
+          return render json: { error: 'Invalid credentials' },
+                        status: :unauthorized
+        end
 
-        return render json: { data: User.find(JwtService.decode(cookies[:user_id])['user_id']) }
+        render json: { data: User.find(JwtService.decode(cookies[:user_id])['user_id']) }
       end
 
       private
