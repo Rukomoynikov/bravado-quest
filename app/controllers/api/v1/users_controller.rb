@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Api
-  module Users
-    class V1Controller < ApplicationController
+  module V1
+    class UsersController < ApplicationController
       def search
         data = search_params[:query].present? ?
                    User.by_query(search_params[:query]) : User.all

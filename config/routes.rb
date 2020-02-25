@@ -2,8 +2,10 @@
 
 Rails.application.routes.draw do
   namespace :api do
-    namespace :users do
-      get 'v1/search'
+    namespace :v1 do
+      resources :users do
+        get 'search', on: :collection
+      end
     end
   end
 

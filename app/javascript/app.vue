@@ -46,7 +46,7 @@ export default {
       UrlManager.updateUrl(this.searchQuery)
 
       const params = { params: { query: this.searchQuery }}
-      axios.get('/api/users/v1/search', params).then((response) => {
+      axios.get('/api/v1/users/search', params).then((response) => {
         this.users = response.data.data
         this.loading = false
       })
