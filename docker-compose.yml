@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment: 
+      POSTGRES_HOST_AUTH_METHOD: trust
+    restart: "no"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  web:
+    build: 
+      context: application
+      dockerfile: ./Dockerfile
+    image: bravado
+    command: ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
+    volumes:
+      - ./application:/opt/app
+      - gem_cache:/opt/app/bundle/gems
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - webpacker
+  webpacker:
+    build: 
+      context: application
+      dockerfile: ./Dockerfile
+    image: bravado
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    command: ./bin/webpack-dev-server
+    volumes:
+      - ./application:/opt/app
+      - gem_cache:/opt/app/bundle/gems
+      - node_modules:/opt/app/node_modules
+    ports:
+      - '3035:3035'
+
+volumes:
+  gem_cache:
+  node_modules:
+  js_packs:

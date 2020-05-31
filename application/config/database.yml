@@ -1,0 +1,18 @@
+default: &default
+  username: postgres
+  host: db
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: bravado_quest_development
+
+test:
+  <<: *default
+  database: bravado_quest_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
