@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-deployment
+  labels:
+    app: rails-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rails-deployment
+  template:
+    metadata:
+      labels:
+        app: rails-deployment
+    spec:
+      containers:
+      - name: rails-deployment
+        image: rukomoynikov/bravado:v0.1
+        command: ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
+        ports:
+        - containerPort: 3000
+        env:
+        - name: RAILS_ENV
+          value: production
+        - name: DATABASE_URL
+          value: postgresql://postgres/bravado_production?user=postgres&password=postgres
+        - name: RAILS_MASTER_KEY
+          value: ee7048e0128a47f05da0b1f0927937d2
+      initContainers:
+      - name: migrate-database
+        image: rukomoynikov/bravado:v0.1
+        command: ["bundle", "exec", "rake", "db:migrate"]
+      - name: compile-javascript
+        image: rukomoynikov/bravado:v0.1
+        command: ["./bin/webpack"]

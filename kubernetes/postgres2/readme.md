@@ -1,0 +1,1 @@
+https://medium.com/@suyashmohan/setting-up-postgresql-database-on-kubernetes-24a2a192e962

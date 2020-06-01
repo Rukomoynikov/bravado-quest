@@ -16,7 +16,7 @@ services:
     build: 
       context: application
       dockerfile: ./Dockerfile
-    image: bravado
+    image: rukomoynikov/bravado
     command: ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
@@ -32,7 +32,7 @@ services:
     build: 
       context: application
       dockerfile: ./Dockerfile
-    image: bravado
+    image: rukomoynikov/bravado
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development

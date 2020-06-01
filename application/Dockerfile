@@ -22,3 +22,5 @@ RUN npm i
 COPY . .
 
 EXPOSE 3000
+
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]

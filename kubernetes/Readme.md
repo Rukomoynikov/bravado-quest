@@ -1,0 +1,1 @@
+https://vitobotta.com/2019/08/22/awesome-rails-development-docker-kubernetes-telepresence/
